@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Custom slider styles */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-track {
+  background: #334155;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #f59e0b;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px #1e293b;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #d97706;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-track {
+  background: #334155;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  background: #f59e0b;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 0 2px #1e293b;
+}
+
+.slider::-moz-range-thumb:hover {
+  background: #d97706;
+  transform: scale(1.1);
+}
+
+/* Animation for loading states */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom focus styles */
+.focus\:ring-asteroid-500:focus {
+  --tw-ring-color: #f59e0b;
+}
+
+/* Leaflet map container fixes */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+/* Three.js canvas container */
+canvas {
+  display: block;
+}
+
+/* Custom gradient backgrounds */
+.bg-gradient-space {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+
+/* Glow effects for interactive elements */
+.glow-asteroid {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+.glow-asteroid:hover {
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+}
+
+/* Text selection */
+::selection {
+  background-color: #f59e0b;
+  color: #0f172a;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.2s ease-in-out;
+}
