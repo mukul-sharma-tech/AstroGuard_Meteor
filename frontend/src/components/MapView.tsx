@@ -13,7 +13,7 @@ export const MapView: React.FC<MapViewProps> = ({
   simulationResult,
   impactLocation,
   isSimulating,
-  useLeaflet = false
+  useLeaflet = true
 }) => {
   // Use Leaflet map if flag is enabled
   if (useLeaflet) {

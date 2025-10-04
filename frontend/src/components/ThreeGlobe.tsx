@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { Sphere, Line, Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { TextureLoader } from 'three';
 
 interface ThreeGlobeProps {
   originalTrajectory: number[][];
@@ -28,19 +29,25 @@ const latLngToVector3 = (lat: number, lng: number, radius: number = 1) => {
 const Earth: React.FC = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   
+  // Load ONLY the two working textures
+  const [colorMap, specularMap] = useLoader(TextureLoader, [
+    'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg',
+    'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_specular_2048.jpg'
+  ]);
+
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.1;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.05;
     }
   });
 
   return (
     <Sphere ref={meshRef} args={[1, 64, 64]}>
+      {/* Remove the bumpMap and bumpScale props */}
       <meshPhongMaterial
-        color="#1e40af"
-        shininess={100}
-        transparent
-        opacity={0.8}
+        map={colorMap}
+        specularMap={specularMap}
+        shininess={50}
       />
     </Sphere>
   );
@@ -57,7 +64,6 @@ const TrajectoryLine: React.FC<{
   
   const linePoints = useMemo(() => {
     return sampledPoints.map(point => {
-      // Scale down the trajectory points to fit around the globe
       const scale = 0.1;
       return new THREE.Vector3(
         point[0] * scale,
@@ -114,14 +120,12 @@ const Asteroid: React.FC<{
     </Sphere>
   );
 };
-
-// Impact location marker
 const ImpactMarker: React.FC<{
   lat: number;
   lng: number;
 }> = ({ lat, lng }) => {
   const position = useMemo(() => {
-    return latLngToVector3(lat, lng, 1.01); // Slightly above surface
+    return latLngToVector3(lat, lng, 1.01); 
   }, [lat, lng]);
 
   return (
@@ -197,14 +201,6 @@ const Globe: React.FC<ThreeGlobeProps> = ({
 };
 
 export const ThreeGlobe: React.FC<ThreeGlobeProps> = (props) => {
-  console.log('ThreeGlobe props:', {
-    originalLength: props.originalTrajectory.length,
-    deflectedLength: props.deflectedTrajectory.length,
-    quality: props.quality,
-    time: props.time,
-    impactLocation: props.impactLocation
-  });
-  
   return (
     <div className="w-full h-full bg-black rounded-lg overflow-hidden">
       <Canvas camera={{ position: [3, 3, 3], fov: 50 }}>
@@ -212,7 +208,7 @@ export const ThreeGlobe: React.FC<ThreeGlobeProps> = (props) => {
       </Canvas>
       
       {/* Overlay info */}
-      <div className="absolute top-4 left-4 text-white">
+      <div className="absolute top-29 left-50 text-white">
         <h3 className="text-lg font-bold mb-2">3D Globe</h3>
         {props.isSimulating && (
           <div className="flex items-center">
@@ -220,14 +216,7 @@ export const ThreeGlobe: React.FC<ThreeGlobeProps> = (props) => {
             <span className="text-sm">Rendering...</span>
           </div>
         )}
-        {!props.isSimulating && (props.originalTrajectory.length > 0 || props.deflectedTrajectory.length > 0) && (
-          <div className="text-sm space-y-1">
-            <p className="text-red-400">● Original trajectory</p>
-            <p className="text-green-400">● Deflected trajectory</p>
-            <p className="text-yellow-400">● Asteroid position</p>
-            {props.impactLocation && <p className="text-orange-400">● Impact location</p>}
-          </div>
-        )}
+        
       </div>
 
       {/* Legend */}

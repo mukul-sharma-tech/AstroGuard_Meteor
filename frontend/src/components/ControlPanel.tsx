@@ -272,7 +272,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 
       {/* Feature Flags */}
       <div className="mb-6">
-        <label className="block text-sm font-medium mb-2">Experimental</label>
+        <label className="block text-sm font-medium mb-2">Visual Change Setting</label>
         <div className="space-y-2 text-sm">
           <label className="flex items-center space-x-2">
             <input type="checkbox" checked={useLeafletMap} onChange={(e)=>onToggleLeaflet(e.target.checked)} />
@@ -280,7 +280,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
           </label>
           <label className="flex items-center space-x-2">
             <input type="checkbox" checked={useThreeGlobe} onChange={(e)=>onToggleThreeGlobe(e.target.checked)} />
-            <span>Enable Three.js globe (coming soon)</span>
+            <span>Enable globe </span>
           </label>
         </div>
       </div>
