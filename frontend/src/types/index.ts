@@ -33,7 +33,7 @@ export interface SimulationResult {
   tsunami_risk: boolean;
   seismic_magnitude: number;
   fireball_radius_km: number;
-  target_type: 'rock' | 'water';
+  target_type: string;
   original_trajectory: number[][];
   deflected_trajectory: number[][];
   miss_distance_km: number;

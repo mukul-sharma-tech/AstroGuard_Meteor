@@ -126,7 +126,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
 
   const [energyLabel, energySeverity] = getSeverity(simulationResult.impact_energy_mt, [10, 100, 1000]);
   const [craterLabel, craterSeverity] = getSeverity(simulationResult.crater_diameter_km, [1, 10, 50]);
-  const [seismicLabel, seismicSeverity] = getSeverity(simulationResult.seismic_magnitude, [6, 7.5, 9]);
+  const [, seismicSeverity] = getSeverity(simulationResult.seismic_magnitude, [6, 7.5, 9]);
 
   // Educational tips that show based on results
   const educationalTips = [
